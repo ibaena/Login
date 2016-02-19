@@ -137,12 +137,12 @@ app.get('/invalid', function(req,res) {
 
 
 app.get('/welcome', function(req,res) {
-  var name = req.body.firstname;
 	// if user is authenticated
 	if(req.session.authenticated){
+console.log(req);
 		res.render("standard",{
       title: 'Welcome ',
-      name: name,
+      name: req.session.authenticated.firstname,
       layout: 'account'
 
     });
