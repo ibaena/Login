@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jgthms/bulma/master/css/bulma.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <title>{{title}}</title>
+
+</head>
+<body>
+  <section class="hero is-success is-fullheight">
+  <!-- Hero header: will stick at the top -->
+  <div class="hero-header">
+    <header class="header">
+      <div class="container">
+        <div class="header-left">
+          <a class="header-item" href="#">
+            <img src="./public/images/node-logo.png" alt="Logo">
+          </a>
+        </div>
+        <div class="header-center">
+          <a class="header-icon" href="https://github.com/ibaena">
+            <i class="fa fa-github"></i>
+          </a>
+          <a class="header-icon" href="https://twitter.com/NotThefakeIB">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </div>
+        <span class="header-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <div class="header-right header-menu">
+          <span class="header-item">
+            <a class="is-active" href="#">Home</a>
+          </span>
+          <span class="header-item">
+            <a href="/login">Login</a>
+          </span>
+          <span class="header-item">
+            <a href="/register">Register</a>
+          </span>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-content">
+    <div class="container">
+      {{{body}}}
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-footer">
+    © 2016 Ivan Baena
+  </div>
+</section>
+
+
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+</body>
+
+</html>

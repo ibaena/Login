@@ -33,6 +33,8 @@ var Users = sequelize.define('user', {
     }
   },
   student: Sequelize.BOOLEAN,
+  teacher: Sequelize.BOOLEAN,
+  assistant: Sequelize.BOOLEAN,
   password: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -62,14 +64,16 @@ var Users = sequelize.define('user', {
 //add to Users table
 /*Users.create({
   email: 'test2@email.com',
-  student: true,
+  student: false,
+  teacher: false,
+  assistant: true,
   password: 'test1234',
-  firstname: 'Floydl',
-  lastname: 'Mayweather',
+  firstname: 'Bruce',
+  lastname: 'Banner',
 }).then(function(task) {
   task.save();
-});*/
-
+});
+*/
 //This will create database table if one does not exist already
 sequelize.sync({
   logging: console.log
@@ -83,8 +87,24 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+app.use('/public', express.static(__dirname + "/public"));
+
+app.use(session({
+	secret: "this is a secret",
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 14
+	},
+	saveUninitialized: true,
+	resave: false
+}));
 
 
 var PORT = process.env.NODE_ENV || 8000;
 app.listen(PORT);
 console.log('Connected at: %s', PORT);
+
+app.get('/', function(req,res) {
+	res.render('index', {
+		title: 'Welcome to ClassDb'
+	});
+});
