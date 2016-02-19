@@ -40,7 +40,7 @@ var Users = sequelize.define('user', {
     allowNull: false,
     validate: {
       len: {
-        args: [8],
+        args: [8,100],
         msg: 'Password must be longer than 8 characters!'
       }
     }
@@ -76,7 +76,7 @@ var Users = sequelize.define('user', {
 */
 //This will create database table if one does not exist already
 sequelize.sync({
-  logging: console.log
+  //logging: console.log
 });
 
 //Express handlebars engine init
@@ -103,8 +103,50 @@ var PORT = process.env.NODE_ENV || 8000;
 app.listen(PORT);
 console.log('Connected at: %s', PORT);
 
+//Login route is landing page
 app.get('/', function(req,res) {
 	res.render('index', {
 		title: 'Welcome to ClassDb'
 	});
+});
+
+app.post('/', function(req, res) {
+	var email = req.body.email;
+	var password = req.body.password;
+
+	Users.findOne({
+		where: {
+			email: email,
+			password: password
+		}
+	}).then(function(user){
+		if(user){
+			req.session.authenticated = user;
+			res.redirect('/welcome');
+		} else {
+			res.redirect('/invalid');
+		}
+	}).catch(function(err){
+		throw err;
+	});
+});
+
+app.get('/invalid', function(req,res) {
+		res.render('invalid');
+});
+
+
+app.get('/welcome', function(req,res) {
+  var name = req.body.firstname;
+	// if user is authenticated
+	if(req.session.authenticated){
+		res.render("standard",{
+      title: 'Welcome ',
+      name: name,
+      layout: 'account'
+
+    });
+	} else {
+		res.redirect("/?msg=you are not logged in");
+	}
 });
