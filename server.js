@@ -150,3 +150,10 @@ console.log(req);
 		res.redirect("/?msg=you are not logged in");
 	}
 });
+
+//register page
+app.get('/register', function(req,res) {
+	res.render('register', {
+		title: 'Lets Get Started'
+	});
+});
