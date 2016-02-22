@@ -123,14 +123,18 @@ app.get('/', function(req, res) {
   });
 });
 
+//student login route
 app.post('/', function(req, res) {
+  console.log(req.body);
   var email = req.body.email;
   var password = req.body.password;
+  var salt = bcrypt.genSaltSync(10);
+  var hash = bcrypt.hashSync("B4c0/\/", salt);
 
   Users.findOne({
     where: {
       email: email,
-      password: password
+      password: bcrypt.compareSync(password, hash)
     }
   }).then(function(user) {
     if (user) {
@@ -152,7 +156,7 @@ app.get('/invalid', function(req, res) {
 app.get('/welcome', function(req, res) {
   // if user is authenticated
   if (req.session.authenticated) {
-    console.log(req);
+    //console.log(req);
     res.render("standard", {
       title: 'Welcome ',
       name: req.session.authenticated.firstname,
