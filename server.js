@@ -125,7 +125,7 @@ app.get('/', function(req, res) {
 
 //student login route
 app.post('/', function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   var email = req.body.email;
   var password = req.body.password;
   var salt = bcrypt.genSaltSync(10);
@@ -134,9 +134,10 @@ app.post('/', function(req, res) {
   Users.findOne({
     where: {
       email: email,
-      password: bcrypt.compareSync(password, hash)
+      password: password
     }
   }).then(function(user) {
+    //console.log(user.password);
     if (user) {
       req.session.authenticated = user;
       res.redirect('/welcome');
