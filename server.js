@@ -173,23 +173,9 @@ app.get('/register', function(req, res) {
 
 //post register form to DB
 app.post('/register', function(req, res) {
-  console.log(req.body);
-  /*var email = req.body.email;
-  var password = req.body.password;
-
-  Users.findOne({
-    where: {
-      email: email,
-      password: password
-    }
-  }).then(function(user) {
-    if (user) {
-      req.session.authenticated = user;
-      res.redirect('/welcome');
-    } else {
-      res.redirect('/invalid');
-    }
-  }).catch(function(err) {
-    throw err;
-  });*/
+  //console.log(req.body);
+  //add to Users table i will use for my registering route
+  Users.create(req.body).then(function(task) {
+    task.save();
+  });
 });
