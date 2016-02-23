@@ -10,45 +10,53 @@
   <title>{{title}} {{name}}</title>
 
 </head>
+
 <body>
   <section class="is-fullheight is-inverted">
-  <!-- Hero header: will stick at the top -->
-  <div class="hero-header">
-    <header class="header">
-      <div class="container">
-        <div class="header-left">
-          <a class="header-item" href="#">
-            <img src="./public/images/node-logo.png" alt="Logo">
-          </a>
-        </div>
-        <div class="header-center">
-          <a class="header-icon" href="https://github.com/ibaena">
-            <i class="fa fa-github"></i>
-          </a>
-          <a class="header-icon" href="https://twitter.com/NotThefakeIB">
-            <i class="fa fa-twitter"></i>
-          </a>
-        </div>
-        <span class="header-toggle">
+    <!-- Hero header: will stick at the top -->
+    <div class="hero-header">
+      <header class="header">
+        <div class="container">
+          <div class="header-left">
+            <div class="navbar-left">
+              <div class="navbar-item">
+                <p class="control is-grouped">
+                  <input class="input" type="text" placeholder="Find a post">
+                  <button class="button">
+                    Search
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="header-center">
+            <a class="header-icon" href="https://github.com/ibaena">
+              <i class="fa fa-github"></i>
+            </a>
+            <a class="header-icon" href="https://twitter.com/NotThefakeIB">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </div>
+          <span class="header-toggle">
           <span></span>
           <span></span>
           <span></span>
-        </span>
-        <div class="header-right header-menu">
-          <span class="header-item">
-            <a class="is-active" href="/welcome">Home</a>
           </span>
-          <span class="header-item">
-            <a href="/">Login</a>
+          <div class="header-right header-menu">
+            <span class="header-item">
+            <a class="is-active" href="/students">Home</a>
           </span>
-          <span class="header-item">
-            <a href="/register">Register</a>
+            <span class="header-item">
+            <a href="#">Menu</a>
           </span>
+            <span class="header-item">
+            <a href="/">Logout</a>
+          </span>
+          </div>
         </div>
-      </div>
-    </header>
-  </div>
-</section>
+      </header>
+    </div>
+  </section>
 
   <!-- Hero content: will be in the middle -->
   <div class="hero-content">

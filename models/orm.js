@@ -40,7 +40,7 @@ var Users = sequelize.define('user', {
     type: Sequelize.STRING,
     allowNull: false
   },
-}, {
+}); /*{
   hooks: {
     beforeCreate: function(input) {
       input.password = bcrypt.hashSync(input.password, 10);

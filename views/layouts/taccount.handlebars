@@ -5,19 +5,28 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://cdn.rawgit.com/jgthms/bulma/master/css/bulma.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <title>{{title}}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./public/stylesheets/student.css">
+  <title>{{title}} {{name}}</title>
 
 </head>
 <body>
-  <section class="hero is-success is-fullheight is-inverted">
+  <section class="is-fullheight is-inverted">
   <!-- Hero header: will stick at the top -->
   <div class="hero-header">
     <header class="header">
       <div class="container">
         <div class="header-left">
-          <a class="header-item" href="#">
-            <img src="./public/images/node-logo.png" alt="Logo">
-          </a>
+          <div class="navbar-left">
+            <div class="navbar-item">
+              <p class="control is-grouped">
+                <input class="input" type="text" placeholder="Find a post">
+                <button class="button">
+                  Search
+                </button>
+              </p>
+            </div>
+          </div>
         </div>
         <div class="header-center">
           <a class="header-icon" href="https://github.com/ibaena">
@@ -34,15 +43,19 @@
         </span>
         <div class="header-right header-menu">
           <span class="header-item">
-            <a class="is-active" href="/">Home</a>
+            <a class="is-active" href="/teachers">Home</a>
           </span>
           <span class="header-item">
-            <a href="/">Login</a>
+            <a href="#">Menu</a>
+          </span>
+          <span class="header-item">
+            <a href="/">Logout</a>
           </span>
         </div>
       </div>
     </header>
   </div>
+</section>
 
   <!-- Hero content: will be in the middle -->
   <div class="hero-content">
@@ -51,17 +64,9 @@
     </div>
   </div>
 
-  <!-- Hero footer: will stick at the bottom -->
-  <div class="hero-footer">
-    © 2016 Ivan Baena
-  </div>
-</section>
-
-
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="../public/javascripts/main.js"></script>
-  <script type="text/javascript" src="..public/javascripts/formvalidate.js""></script>
 
 </body>
 

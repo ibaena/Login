@@ -43,7 +43,7 @@ router.get('/teachers', function(req, res) {
         title: 'Welcome Teachers',
         fname: req.session.authenticated.firstname,
         lname: req.session.authenticated.lastname,
-        layout: 'account',
+        layout: 'taccount',
         student: student
       });
     } else {
@@ -93,7 +93,6 @@ router.post('/', function(req, res) {
 router.post('/register', function(req, res) {
   bcrypt.genSalt(10, function(err, salt){
     bcrypt.hash(req.body.password, salt, function(err, hash){
-      //add to Users table i will use for my registering route
       Users.create({
        email: req.body.email,
        student: req.body.student,
