@@ -18,22 +18,41 @@ router.get('/register', function(req, res) {
 });
 
 router.get('/students', function(req, res) {
-  // if user is authenticated
-  if (req.session.authenticated) {
-    //console.log(req);
-    res.render("standard", {
-      title: 'Welcome Students',
-      fname: req.session.authenticated.firstname,
-      lname: req.session.authenticated.lastname,
-      layout: 'account'
-    });
-  } else {
-    res.redirect("/?msg=you are not logged in");
-  }
+  Users.findAll({ where: { teacher: true } }).then(function(teacher) {
+    // if user is authenticated
+    if (req.session.authenticated) {
+      res.render("standard", {
+        title: 'Welcome Students',
+        fname: req.session.authenticated.firstname,
+        lname: req.session.authenticated.lastname,
+        layout: 'account',
+        teacher: teacher
+      });
+    } else {
+      res.redirect("/?msg=you are not logged in");
+    }
+  });
+});
+
+router.get('/teachers', function(req, res) {
+  Users.findAll({ where: { student: true } }).then(function(student) {
+    console.log(student);
+    // if user is authenticated
+    if (req.session.authenticated) {
+      res.render("teacher", {
+        title: 'Welcome Teachers',
+        fname: req.session.authenticated.firstname,
+        lname: req.session.authenticated.lastname,
+        layout: 'account',
+        student: student
+      });
+    } else {
+      res.redirect("/?msg=you are not logged in");
+    }
+  });
 });
 
 router.get('/success', function(req, res) {
-  console.log(req.body);
   res.render('success', {
     title: 'Lets Get Started',
     name: req.body.firstname
@@ -46,7 +65,6 @@ router.get('/invalid', function(req, res) {
 
 //post routes
 router.post('/', function(req, res) {
-  //console.log(req.body);
   var email = req.body.email;
   var password = req.body.password;
 
@@ -55,13 +73,15 @@ router.post('/', function(req, res) {
       email: email,
     }
   }).then(function(user) {
-    console.log(user);
     bcrypt.compare(password, user.dataValues.password, function(err, results){
       console.log("Results are " + results);
       if (results && user.dataValues.student === true) {
         req.session.authenticated = user;
         res.redirect('/students');
-      } else {
+      }else if (results && user.dataValues.teacher === true){
+        req.session.authenticated = user;
+        res.redirect('/teachers');
+      }else{
         res.redirect('/invalid');
       }
     });
@@ -72,8 +92,7 @@ router.post('/', function(req, res) {
 
 router.post('/register', function(req, res) {
   bcrypt.genSalt(10, function(err, salt){
-    console.log("Salt the first time around is " + salt);
-    bcrypt.hash(password, salt, function(err, hash){
+    bcrypt.hash(req.body.password, salt, function(err, hash){
       //add to Users table i will use for my registering route
       Users.create({
        email: req.body.email,
