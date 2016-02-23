@@ -40,6 +40,6 @@ connection.sync().then(function() {
 var routes = require('./controllers/router.js');
 app.use('/', routes);
 app.use('/register', routes);
-app.use('/welcome', routes);
+app.use('/students', routes);
 app.use('/success', routes);
 app.use('/invalid', routes);

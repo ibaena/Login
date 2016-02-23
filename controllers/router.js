@@ -17,13 +17,14 @@ router.get('/register', function(req, res) {
   });
 });
 
-router.get('/welcome', function(req, res) {
+router.get('/students', function(req, res) {
   // if user is authenticated
   if (req.session.authenticated) {
     //console.log(req);
     res.render("standard", {
-      title: 'Welcome ',
-      name: req.session.authenticated.firstname,
+      title: 'Welcome Students',
+      fname: req.session.authenticated.firstname,
+      lname: req.session.authenticated.lastname,
       layout: 'account'
     });
   } else {
@@ -54,11 +55,12 @@ router.post('/', function(req, res) {
       email: email,
     }
   }).then(function(user) {
+    console.log(user);
     bcrypt.compare(password, user.dataValues.password, function(err, results){
       console.log("Results are " + results);
-      if (results) {
+      if (results && user.dataValues.student === true) {
         req.session.authenticated = user;
-        res.redirect('/welcome');
+        res.redirect('/students');
       } else {
         res.redirect('/invalid');
       }
