@@ -49,15 +49,15 @@ var Users = sequelize.define('user', {
 });
 
 // query the Users table used fo debugging
-/*Users.findAll({
+/*Users.findOne({
   where: {
     //firstname:'Iron'
-    email: 'test3@email.com'
+    email: 'cKent@email.com'
   }
-}).then(function(foundObject) {
-  foundObject.forEach(function(data) {
-    console.log(data);
-  });
+}).then(function(data) {
+  bcrypt.compare("test1234", data.password, function(err, res) {
+  console.log(res);
+});
 });*/
 
 //add to Users table for debugging

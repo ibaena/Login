@@ -48,13 +48,15 @@ app.post('/', function(req, res) {
   var password = req.body.password;
 
 
+
   Users.findOne({
     where: {
       email: email,
       password: password
+
     }
   }).then(function(user) {
-    //console.log(user.password);
+  //console.log(req.session.authenticated);
     if (user) {
       req.session.authenticated = user;
       res.redirect('/welcome');
