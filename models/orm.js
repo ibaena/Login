@@ -4,7 +4,7 @@ var sequelize = require("../config/connection.js");
 var Sequelize = require('sequelize');
 var bcrypt = require('bcryptjs');
 
-//model schema
+//model
 var Users = sequelize.define('user', {
   id: {
     type: Sequelize.INTEGER,
@@ -34,7 +34,7 @@ var Users = sequelize.define('user', {
   },
   firstname: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   lastname: {
     type: Sequelize.STRING,
@@ -48,34 +48,9 @@ var Users = sequelize.define('user', {
   }
 });
 
-// query the Users table used fo debugging
-/*Users.findOne({
-  where: {
-    //firstname:'Iron'
-    email: 'cKent@email.com'
-  }
-}).then(function(data) {
-  bcrypt.compare("test1234", data.password, function(err, res) {
-  console.log(res);
-});
-});*/
-
-//add to Users table for debugging
-/*Users.create({
-  email: 'test5@email.com',
-  student: false,
-  teacher: true,
-  assistant: false,
-  password: 'test1234',
-  firstname: 'Clark',
-  lastname: 'Kent',
-}).then(function(task) {
-  task.save();
-});*/
-
 //This will create database table if one does not exist already
-sequelize.sync({
+/*sequelize.sync({
   //logging: console.log
-});
+});*/
 
 module.exports = Users;
