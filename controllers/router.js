@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcryptjs');
 var Users = require('../models/orm.js');
 
 //get routes
@@ -51,28 +52,42 @@ router.post('/', function(req, res) {
   Users.findOne({
     where: {
       email: email,
-      password: password
-
     }
   }).then(function(user) {
-    //console.log(req.session.authenticated);
-    if (user) {
-      req.session.authenticated = user;
-      res.redirect('/welcome');
-    } else {
-      res.redirect('/invalid');
-    }
+    bcrypt.compare(password, user.dataValues.password, function(err, results){
+      console.log("Results are " + results);
+      if (results) {
+        req.session.authenticated = user;
+        res.redirect('/welcome');
+      } else {
+        res.redirect('/invalid');
+      }
+    });
   }).catch(function(err) {
     throw err;
   });
 });
 
 router.post('/register', function(req, res) {
-  //add to Users table i will use for my registering route
-  Users.create(req.body).then(function(task) {
-    task.save();
+  bcrypt.genSalt(10, function(err, salt){
+    console.log("Salt the first time around is " + salt);
+    bcrypt.hash(password, salt, function(err, hash){
+      //add to Users table i will use for my registering route
+      Users.create({
+       email: req.body.email,
+       student: req.body.student,
+       teacher: req.body.teacher,
+       assistant: req.body.assistant,
+       password: hash,
+       firstname: req.body.firstname,
+       lastname: req.body.lastname,
+      }).then(function(task) {
+        task.save();
+      });
+      res.redirect('/success');
+    });
+    });
   });
-  res.redirect('/success');
-});
+
 
 module.exports = router;
